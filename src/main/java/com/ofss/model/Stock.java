@@ -19,7 +19,7 @@ public class Stock {
 
     @Id
     @Column(name="STOCK_ID")
-    private Integer stockId;
+    private Long stockId;
     @Column(name="STOCK_NAME")
     private String name;
     @Column(name="STOCK_PRICE")

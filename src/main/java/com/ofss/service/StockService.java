@@ -23,12 +23,12 @@ public class StockService {
         return (List<Stock>) stockRepository.findAll();
     }
 
-    public Stock getAStockById(int id){
+    public Stock getAStockById(Long id){
         return stockRepository.findById(id).get();
     }
 
 
-    public void deleteAStockById(int sid) {
+    public void deleteAStockById(Long sid) {
         stockRepository.deleteById(sid);
     }
 
@@ -36,7 +36,7 @@ public class StockService {
         return stockRepository.save(newStock);
     }
 
-    public void updateAStockById(int sid, Stock newStock) {
+    public void updateAStockById(Long sid, Stock newStock) {
 
         if(stockRepository.findById(sid).isPresent()){
             newStock.setStockId(sid);
@@ -48,7 +48,7 @@ public class StockService {
     }
 
 
-    public void patchStockById(int sid, Stock partialStock) {
+    public void patchStockById(Long sid, Stock partialStock) {
 
         Optional<Stock> optionalStock = stockRepository.findById(sid);
 

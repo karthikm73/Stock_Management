@@ -29,7 +29,7 @@ public class StockController {
     }
 
     @GetMapping("/stocks/{stockId}")
-    public ResponseEntity<ApiResponse<Stock>> getAStockById(@PathVariable("stockId") int sid) {
+    public ResponseEntity<ApiResponse<Stock>> getAStockById(@PathVariable("stockId") Long sid) {
         try {
             Stock stock = stockService.getAStockById(sid);
             return ResponseEntity.ok(ApiResponse.success("Stock retrieved successfully", stock));
@@ -43,7 +43,7 @@ public class StockController {
     }
 
     @DeleteMapping("/stocks/{id}")
-    public ResponseEntity<ApiResponse<Object>> deleteStockById(@PathVariable(value = "id") int id) {
+    public ResponseEntity<ApiResponse<Object>> deleteStockById(@PathVariable(value = "id") Long id) {
         try {
             stockService.deleteAStockById(id);
             return ResponseEntity.ok(ApiResponse.success("Stock deleted successfully", null));
@@ -69,7 +69,7 @@ public class StockController {
     }
 
     @PutMapping("/stocks/{stockId}")
-    public ResponseEntity<ApiResponse<Object>> updateAStockById(@PathVariable("stockId") int sid, @RequestBody Stock newStock) {
+    public ResponseEntity<ApiResponse<Object>> updateAStockById(@PathVariable("stockId") Long sid, @RequestBody Stock newStock) {
         try {
             stockService.updateAStockById(sid, newStock);
             return ResponseEntity.ok(ApiResponse.success("Stock updated successfully", null));
@@ -83,7 +83,7 @@ public class StockController {
     }
 
     @PatchMapping("/stocks/{stockId}")
-    public ResponseEntity<ApiResponse<Object>> patchAStockById(@PathVariable("stockId") int sid, @RequestBody Stock newStock) {
+    public ResponseEntity<ApiResponse<Object>> patchAStockById(@PathVariable("stockId") Long sid, @RequestBody Stock newStock) {
         try {
             stockService.patchStockById(sid, newStock);
             return ResponseEntity.ok(ApiResponse.success("Stock patched successfully", null));

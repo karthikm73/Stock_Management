@@ -1,8 +1,6 @@
 package com.ofss.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +16,8 @@ import java.sql.Date;
 public class Stock {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stock_generator")
+    @SequenceGenerator(name = "stock_generator", sequenceName = "stock_seq", allocationSize = 1)
     @Column(name="STOCK_ID")
     private Long stockId;
     @Column(name="STOCK_NAME")

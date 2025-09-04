@@ -16,6 +16,8 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class Transaction {
 
+//    Use @ManyToOne to define the model properly. Then use DTOs or projections to fetch exactly what you need — best of both worlds.
+
     @Id
     @Column(name = "TXN_ID", nullable = false)
     private Long txnId;

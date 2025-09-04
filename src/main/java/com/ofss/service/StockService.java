@@ -41,6 +41,7 @@ public class StockService {
         if(stockRepository.findById(sid).isPresent()){
             newStock.setStockId(sid);
             stockRepository.save(newStock);
+            return;
 
         }
         throw new StockNotFoundException("Stock with id "+sid+" not found");

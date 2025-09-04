@@ -1,10 +1,7 @@
 package com.ofss.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +13,8 @@ public class Customer {
 
     @Id
     @Column(name = "CUST_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_generator")
+    @SequenceGenerator(name = "customer_generator", sequenceName = "customer_seq", allocationSize = 1)
     private Long customerId;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 50)

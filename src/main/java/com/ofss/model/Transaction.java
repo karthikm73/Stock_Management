@@ -10,23 +10,25 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "TRANSACTIONS")
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "TRANSACTIONS")
 public class Transaction {
 
-//    Use @ManyToOne to define the model properly. Then use DTOs or projections to fetch exactly what you need — best of both worlds.
-
     @Id
-    @Column(name = "TXN_ID", nullable = false)
+    @Column(name = "TXN_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_generator")
+    @SequenceGenerator(name = "transaction_generator", sequenceName = "transaction_seq", allocationSize = 1)
     private Long txnId;
 
-    @Column(name = "CUST_ID", nullable = false)
-    private Long customerId;
+    @ManyToOne
+    @JoinColumn(name = "CUST_ID", nullable = false)
+    private Customer customer;
 
-    @Column(name = "STOCK_ID", nullable = false)
-    private Long stockId;
+    @ManyToOne
+    @JoinColumn(name = "STOCK_ID", nullable = false)
+    private Stock stock;
 
     @Column(name = "TXN_PRICE", nullable = false, precision = 10, scale = 2)
     private BigDecimal txnPrice;
@@ -37,7 +39,9 @@ public class Transaction {
     @Column(name = "QTY", nullable = false)
     private Integer qty;
 
-    @CreatedDate
+    @Temporal(TemporalType.DATE)
     @Column(name = "TXN_DATE")
+    @CreatedDate
     private Date txnDate;
+
 }

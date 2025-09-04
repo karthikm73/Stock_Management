@@ -34,7 +34,7 @@ public class TransactionService {
 
     public Transaction createTransaction(Transaction transaction) {
         // Optional: validate existence of customerId and stockId
-        validateCustomerAndStockExist(transaction.getCustomerId(), transaction.getStockId());
+        validateCustomerAndStockExist(transaction.getCustomer().getCustomerId(), transaction.getStock().getStockId());
 
         return transactionRepository.save(transaction);
     }
@@ -43,10 +43,10 @@ public class TransactionService {
         Transaction existing = transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction not found with ID: " + id));
 
-        validateCustomerAndStockExist(updatedTransaction.getCustomerId(), updatedTransaction.getStockId());
+        validateCustomerAndStockExist(updatedTransaction.getCustomer().getCustomerId(), updatedTransaction.getStock().getStockId());
 
-        existing.setCustomerId(updatedTransaction.getCustomerId());
-        existing.setStockId(updatedTransaction.getStockId());
+        existing.setCustomer(updatedTransaction.getCustomer());
+        existing.setStock(updatedTransaction.getStock());
         existing.setTxnPrice(updatedTransaction.getTxnPrice());
         existing.setTxnType(updatedTransaction.getTxnType());
         existing.setQty(updatedTransaction.getQty());

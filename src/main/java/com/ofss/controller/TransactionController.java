@@ -1,5 +1,6 @@
 package com.ofss.controller;
 
+import com.ofss.model.Stock;
 import com.ofss.model.Transaction;
 import com.ofss.service.TransactionService;
 import com.ofss.utils.ApiResponse;  // your ApiResponse package
@@ -46,5 +47,17 @@ public class TransactionController {
     public ResponseEntity<ApiResponse<Void>> deleteTransaction(@PathVariable Long id) {
         transactionService.deleteTransaction(id);
         return ResponseEntity.ok(ApiResponse.success("Transaction deleted successfully", null));
+    }
+
+    @GetMapping("/customer/{id}")
+    public  ResponseEntity<ApiResponse<List<Transaction>>> getTransactionsOfCustomerById(@PathVariable(value = "id") Long id){
+        try{
+            List<Transaction> customerTrans = transactionService.getTransactionsByCustomerId(id);
+            return ResponseEntity.ok(ApiResponse.success("Transaction of customer fetched",customerTrans));
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error("Failed to get the transaction details of the customer"));
+
+        }
     }
 }

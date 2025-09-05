@@ -69,5 +69,12 @@ public class TransactionService {
             throw new ResourceNotFoundException("Stock not found with ID: " + stockId);
         }
     }
+
+    public List<Transaction> getTransactionsByCustomerId(Long customerId){
+        if (!customerRepository.existsById(customerId)) {
+            throw new ResourceNotFoundException("Customer not found with ID: " + customerId);
+        }
+        return transactionRepository.findByCustomer_CustomerId(customerId);
+    }
 }
 

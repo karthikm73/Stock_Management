@@ -44,4 +44,9 @@ public class CustomerService {
         }
         customerRepository.deleteById(id);
     }
+
+    public Customer loginUsingEmailId(String emailId) {
+        return customerRepository.findByEmailId(emailId)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with this emailId doesn't exist"));
+    }
 }

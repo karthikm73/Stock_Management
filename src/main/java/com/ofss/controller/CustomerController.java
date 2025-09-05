@@ -6,6 +6,7 @@ import com.ofss.exceptions.CustomerNotFoundException;
 import com.ofss.service.CustomerService;
 import com.ofss.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +59,22 @@ public class CustomerController {
             return ResponseEntity.ok(ApiResponse.success("Customer deleted successfully", null));
         } catch (CustomerNotFoundException ex) {
             return ResponseEntity.status(404).body(ApiResponse.error(ex.getMessage()));
+        }
+    }
+
+
+    @PostMapping("/login/{emailId}")
+    public ResponseEntity<ApiResponse<Customer>> loginUsingEmailId(@PathVariable String emailId) {
+        try {
+            Customer customer = customerService.loginUsingEmailId(emailId);
+            ApiResponse<Customer> response = ApiResponse.success("Login successful", customer);
+            return ResponseEntity.ok(response);
+        } catch (CustomerNotFoundException ex) {
+            ApiResponse<Customer> response = ApiResponse.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        } catch (Exception ex) {
+            ApiResponse<Customer> response = ApiResponse.error("An unexpected error occurred");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 }
